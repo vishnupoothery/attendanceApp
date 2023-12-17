@@ -1,4 +1,4 @@
 <?php
-$roll = "P191029";
+$roll = "password";
 echo password_hash($roll, PASSWORD_BCRYPT);
 ?>

@@ -17,19 +17,21 @@ $results = $records->fetch(PDO::FETCH_ASSOC);
 
 $message = '';
 
-if(count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
+
+if($results && count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
 
     $_SESSION['username'] = $results['username'];
     $_SESSION['access'] = "admin";
     header("Location: index.php");
 
 } else {
-    $records2 = $conn->prepare('SELECT email,password FROM admin WHERE email = :username');
-    $records2->bindParam(':email', $_POST['username']);
-    $records2->execute();
-    $results2 = $records2->fetch(PDO::FETCH_ASSOC);   
 
-    if(count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
+    $records = $conn->prepare('SELECT email,password FROM teacher WHERE email = :email');
+    $records->bindParam(':email', $_POST['username']);
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);   
+
+    if($results && count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
 
         $_SESSION['username'] = $results['email'];
         $_SESSION['access'] = "teacher";

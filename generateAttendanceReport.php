@@ -94,13 +94,15 @@
             <div class="col-12">
                 <div class="row">
                     <div class="col-12"><br><br></div>
-                    <div class="col-4 box">Total Working Days</div>
-                    <div class="col-4 box">Present</div>
-                    <div class="col-4 box">Absent</div>
+                    <div class="col-3 box">Total Working Days</div>
+                    <div class="col-3 box">Present</div>
+                    <div class="col-3 box">Percentage</div>
+                    <div class="col-3 box">Absent</div>
 
-                    <div class="col-4 box"><?php echo $totalWorkingDays['COUNT(id)']; ?></div>
-                    <div class="col-4 box"><?php echo $totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)']; ?></div>
-                    <div class="col-4 box"><?php echo $absent['COUNT(id)'] ?></div>
+                    <div class="col-3 box"><?php echo $totalWorkingDays['COUNT(id)']; ?></div>
+                    <div class="col-3 box"><?php echo $totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)']; ?></div>
+                    <div class="col-3 box"><?php echo (($totalWorkingDays['COUNT(id)']-$absent['COUNT(id)'])*100)/$totalWorkingDays['COUNT(id)']; ?></div>
+                    <div class="col-3 box"><?php echo $absent['COUNT(id)'] ?></div>
                 </div>
             </div>
 
