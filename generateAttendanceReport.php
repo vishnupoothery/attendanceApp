@@ -7,19 +7,19 @@
   $records->execute();
   $student = $records->fetch(PDO::FETCH_ASSOC);
 
-  $records = $conn->prepare('SELECT batchName FROM batch WHERE id = :id');
-  $records->bindParam(':id', $student['batch']);
+  $records = $conn->prepare('SELECT name FROM class WHERE id = :id');
+  $records->bindParam(':id', $student['class']);
   $records->execute();
   $batch = $records->fetch(PDO::FETCH_ASSOC);
 
-  $records = $conn->prepare('SELECT COUNT(id) FROM attendance WHERE rollNo = :rollNo AND absent = 1');
-  $records->bindParam(':rollNo', $student['rollNo']);
+  $records = $conn->prepare('SELECT COUNT(id) FROM attendance WHERE student = :studentId AND absent = 1');
+  $records->bindParam(':studentId', $student['id']);
   $records->execute();
   $absent = $records->fetch(PDO::FETCH_ASSOC);
   //echo $absent['COUNT(id)'].'<br>';
 
-  $records = $conn->prepare('SELECT COUNT(id) FROM attendance WHERE rollNo = :rollNo');
-  $records->bindParam(':rollNo', $student['rollNo']);
+  $records = $conn->prepare('SELECT COUNT(id) FROM attendance WHERE student = :studentId');
+  $records->bindParam(':studentId', $student['id']);
   $records->execute();
   $totalWorkingDays = $records->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -81,11 +81,13 @@
                 <div class="col-12"><br><br></div>
             <div class="col-12">
                 <div class="row">
-                    <div class="col-2 box"><img class="img-fluid" src="<?php echo $student['picture']; ?>"></div>
+                    <div class="col-2 box">
+                        <img class="img-fluid" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
+                    </div>
                     <div class="col-10 box">
                         <p>Name : <?php echo $student['name'] ?><br><hr>
-                            RollNo : <?php echo $student['rollNo'] ?><br><hr>
-                            Batch : <?php echo $batch['batchName'] ?></p>
+                            RollNo : <?php echo $student['roll'] ?><br><hr>
+                            Class : <?php echo $batch['name'] ?></p>
                     </div>
                 </div>
             </div>
@@ -110,7 +112,7 @@
                     </div>
                     <?php
                         $count = 1;
-                        foreach($conn->query('SELECT * FROM attendance WHERE rollNo = "'.$student['rollNo'].'" AND absent = 1 ORDER BY date DESC') as $row){
+                        foreach($conn->query('SELECT * FROM attendance WHERE student = "'.$student['id'].'" AND absent = 1 ORDER BY date DESC') as $row){
                             $date = date("d-m-Y", strtotime($row['date']));
                             echo '<div class="col-1 box">';
                                 echo $count;

@@ -1,11 +1,16 @@
 <?php
   require 'checkLogin.php';
   require 'config.php';
-  
-  $records = $conn->prepare('SELECT * FROM class WHERE id = :batch');
-  $records->bindParam(':batch', $_GET['batch']);
+
+  $records = $conn->prepare('SELECT * FROM student WHERE id = :id');
+  $records->bindParam(':id', $_GET['id']);
   $records->execute();
-  $exam = $records->fetch(PDO::FETCH_ASSOC);
+  $student = $records->fetch(PDO::FETCH_ASSOC);
+
+  $records = $conn->prepare('SELECT * FROM class WHERE id = :id');
+  $records->bindParam(':id', $student['class']);
+  $records->execute();
+  $batch = $records->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +24,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UCC MCA - Attendance</title>
+    <title>Pulse Admin - View Student</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +42,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">UCC MCA Admin</a>
+      <a class="navbar-brand mr-1" href="index.php">PULSE Admin</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -92,11 +97,6 @@
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="addAttendanceBatches.php">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Add Attendance</span></a>
-        </li>
       </ul>
 
     </nav>
@@ -136,6 +136,11 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Add Timetable</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addAttendanceBatches.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Add Attendance</span></a>
+        </li>
       </ul>
 
       <div id="content-wrapper">
@@ -147,56 +152,41 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active"><a href="addAttendanceBatches.php">View Batches</a></li>
-            <li class="breadcrumb-item">Add Attendance</li>
+            <li class="breadcrumb-item active"><a href="viewBatch.php?batchId=<?php echo $batch['id']; ?>"><?php echo $batch['name']; ?></a></li>
+            <li class="breadcrumb-item active">View Student</li>
+            <li class="breadcrumb-item active"><?php echo $student['name']; ?></li>
           </ol>
           <!--  Buttons  -->
-          
           <div class="box-btn">
-          <a class="btn btn-outline-dark btn-bread" href="addAttendanceBatches.php">Back</a>
+            <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
+            <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Batches </a>
+            <!-- <a class="btn btn-outline-dark btn-bread" href="editStudent.php?id=<?php echo $student['id']; ?>"> Edit Student </a> -->
+            <a class="btn btn-outline-dark btn-bread" target="blank" href="generateAttendanceReport.php?id=<?php echo $student['id']; ?>"> Generate Attendance Report </a>
           </div>
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-body">
-                <form method="POST" action="validateAddAttendance.php">
+              <div class="">
                 <div class="row">
-                  <div class="col-6">
-                      <div class="form-group">
-                          <input required type="date" name="date" id="date" value="<?php echo date("Y-m-d"); ?>" class="form-control">
-                          <input type="hidden" name="class" value="<?php echo $_GET['batch'] ?>">
-                      </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                    <select id="subject" name="subject" class="form-control">
-                      <?php
-                foreach($conn->query('SELECT * FROM subject') as $row){
-                  echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
-                  }
-                ?>
-                      </select>
-                    </div>
-                  </div>
+                  <div class="col-12"><br></div>
+                  <div class="col-3">Name </div>
+                  <div class="col-9">: <?php echo $student['name'] ?></div>
+                  <div class="col-12"><hr style="color:white;"></div>
+                  <div class="col-3">Roll No </div>
+                  <div class="col-9">: <?php echo $student['roll'] ?></div>
+                  <div class="col-12"><hr style="color:white;"></div>
+                  <div class="col-3">Class </div>
+                  <div class="col-9">: <?php echo $batch['name'] ?></div>
+                  <div class="col-12"><hr style="color:white;"></div>
+                  <div class="col-3">Email </div>
+                  <div class="col-9">: <?php echo $student['email'] ?></div>
+                  <div class="col-12"><hr style="color:white;"></div>
+                  <div class="col-3">Phone </div>
+                  <div class="col-9">: <?php echo $student['phone'] ?></div>
+                  <div class="col-12"><hr style="color:white;"></div>
                 </div>
-                    
-              <div class="row">
-                  
-                <?php
-                $count = 0;
-                foreach($conn->query('SELECT * FROM student WHERE class = '.$_GET['batch']) as $row){
-                    echo '<div class="form-group col-2">'.$row['roll'].'</div><div class="form-group col-6">'.$row['name'].'</div><div class="form-group col-2"><input type="hidden" name="student['.$count.']" value="'.$row['roll'].'">
-                    <select name="absent['.$count.']" class="form-control">
-                      <option value="0">present</option>
-                      <option value="1">absent</option>
-                    </select>
-                    </div><div class="col-12"><hr></div>';
-                    $count+=1;
-                }
-                ?>
+               
               </div>
-              <input type="hidden" name="count" value="<?php echo $count; ?>">
-              <input name="submit" type="submit" value="ADD ATTENDANCE" class="btn btn-outline-dark">
-            </form>
             </div>
           </div>
 
@@ -206,8 +196,8 @@
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-              <span>Copyright &copy; <?php echo date("Y"); ?> &mdash; Pulse | made by Vishnu Poothery</span>
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
             </div>
           </div>
         </footer>
@@ -260,3 +250,26 @@
   </body>
 
 </html>
+<?php
+echo '<div class="modal fade" id="modal'.$_GET['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to delete this
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <a href="deleteStudent.php?id='.$_GET['id'].'" type="button" class="btn btn-danger">DELETE</a>
+    </div>
+  </div>
+</div>
+</div>';
+
+?>
+

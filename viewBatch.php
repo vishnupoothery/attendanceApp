@@ -4,31 +4,32 @@
 ?>
 
 <?php
-$records = $conn->prepare('SELECT * FROM class WHERE id = :roll');
-$records->bindParam(':roll', $_GET['id']);
+$records = $conn->prepare('SELECT * FROM class WHERE id = :id');
+$records->bindParam(':id', $_GET['batchId']);
 $records->execute();
 $batch = $records->fetch(PDO::FETCH_ASSOC);
 
-        $stmt = $conn->prepare('SELECT roll,name FROM student WHERE class = :id ORDER BY roll');
-        $stmt->bindParam(':id', $_GET['id']);
-        $stmt->execute();
+
+//         $stmt = $conn->prepare('SELECT roll,name FROM student WHERE class = :id ORDER BY roll');
+//         $stmt->bindParam(':id', $_GET['id']);
+//         $stmt->execute();
     
-        $filelocation = 'export/';
-        $filename     = 'export-'.date('Y-m-d H.i.s').'.csv';
-        $file_export  =  $filelocation . $filename;
+//         $filelocation = 'export/';
+//         $filename     = 'export-'.date('Y-m-d H.i.s').'.csv';
+//         $file_export  =  $filelocation . $filename;
     
-        $data = fopen($file_export, 'w');
+//         $data = fopen($file_export, 'w');
     
-        $csv_fields = array();
+//         $csv_fields = array();
     
-        $csv_fields[] = 'Roll Number';
-        $csv_fields[] = 'Name';
+//         $csv_fields[] = 'Roll Number';
+//         $csv_fields[] = 'Name';
     
-        fputcsv($data, $csv_fields);
+//         fputcsv($data, $csv_fields);
     
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        fputcsv($data, $row);
-        }
+//         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//         fputcsv($data, $row);
+//         }
 ?>
 
 <!DOCTYPE html>
@@ -81,13 +82,12 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
               <a href="#">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">View Batch</li>
-            <li class="breadcrumb-item active"><?php echo $batch['batchName']; ?></li>
+            <li class="breadcrumb-item active"><?php echo $batch['name']; ?></li>
           </ol>
           <!--  Buttons  -->
           <div class="box-btn">
             <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
             <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Batches </a>
-            <?php echo '<a href="'.$file_export.'" class="btn btn-dark btn-bread">Download CSV file</a><div><br></div>'; ?>
           </div>
           <?php
 if(!empty($_GET['message'])){
@@ -108,7 +108,7 @@ if(!empty($_GET['message'])){
                   <div class="col-12"><hr></div>
                 <?php
                 $count = 1;
-                foreach($conn->query('SELECT * FROM student WHERE class = '.$_GET["id"]) as $row){
+                foreach($conn->query('SELECT * FROM student WHERE class = '.$_GET["batchId"]) as $row){
                     echo '<div class="col-1">'.$count.'</div><div class="col-2">'.$row['roll'].'</div><div class="col-5"><a class="student-name" href="viewStudent.php?id='.$row['id'].'">'.$row['name'].'</a></div>
                     <div class="col-4" ><a href="editStudent.php?id='.$row['id'].'"> EDIT | </a>
                     <a style="color: red;cursor:pointer;" data-toggle="modal" data-target="#modal'.$row['id'].'"> DELETE </a></div><div class="col-12"><hr></div>';

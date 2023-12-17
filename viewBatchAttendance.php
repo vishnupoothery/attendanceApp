@@ -4,7 +4,7 @@
 ?>
 
 <?php
-$records = $conn->prepare('SELECT * FROM batch WHERE id = :id');
+$records = $conn->prepare('SELECT * FROM subject WHERE id = :id');
 $records->bindParam(':id', $_GET['batch']);
 $records->execute();
 $batch = $records->fetch(PDO::FETCH_ASSOC);
@@ -60,7 +60,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
               <a href="#">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">View Batch</li>
-            <li class="breadcrumb-item active"><?php echo $batch['batchName']; ?></li>
+            <li class="breadcrumb-item active"><?php echo $batch['name']; ?></li>
           </ol>
           <!--  Buttons  -->
           <div class="box-btn">
@@ -78,7 +78,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
                     $att = array("Present","Absent");
                     $count = 1;
                     $flag = 1;
-                    foreach($conn->query('SELECT A.name,B.absent FROM attendance B, student A WHERE B.batch = '.$_GET['batch'].' AND B.date="'.$_GET['date'].'" AND A.rollNo = B.rollNo ORDER BY B.date ASC') as $row){
+                    foreach($conn->query('SELECT A.name,B.absent FROM attendance B, student A WHERE B.subject = '.$_GET['batch'].' AND B.date="'.$_GET['date'].'" AND A.id = B.student ORDER BY B.date ASC') as $row){
                       $flag = 0;
                       echo '<div class="col-2 col-md-2 btn btn-link">'.$row['name'].'</div><div class="col-10">'.$att[$row['absent']].'</div>';
                       $count+=1;

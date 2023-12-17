@@ -6,8 +6,8 @@
 ?>
 
 <?php
-$records = $conn->prepare('SELECT * FROM class WHERE id = :id');
-$records->bindParam(':id', $_GET['class']);
+$records = $conn->prepare('SELECT * FROM subject WHERE id = :id');
+$records->bindParam(':id', $_GET['batch']);
 $records->execute();
 $batch = $records->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -166,7 +166,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
               <!--  <div class="row">
                     <?php 
                     $count = 1;
-                    foreach($conn->query('SELECT DISTINCT date FROM attendance WHERE batch = '.$_GET['batch'].' ORDER BY date ASC') as $row){
+                    foreach($conn->query('SELECT DISTINCT date FROM attendance WHERE subject = '.$_GET['batch'].' ORDER BY date ASC') as $row){
                       echo '<div class="col-12"><a class="btn btn-link" href="viewBatchAttendance.php?batch='.$_GET['batch'].'&date='.$row['date'].'">'.$row['date'].'</a></div>';
                       $count+=1;
                       $dateee = strtotime($row['date']);

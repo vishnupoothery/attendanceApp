@@ -91,7 +91,7 @@
                 <?php
                 $count = 0;
                 foreach($conn->query('SELECT * FROM student WHERE class = '.$_GET['batch']) as $row){
-                    echo '<div class="form-group col-2">'.$row['roll'].'</div><div class="form-group col-6">'.$row['name'].'</div><div class="form-group col-2"><input type="hidden" name="student['.$count.']" value="'.$row['roll'].'">
+                    echo '<div class="form-group col-2">'.$row['roll'].'</div><div class="form-group col-6">'.$row['name'].'</div><div class="form-group col-2"><input type="hidden" name="student['.$count.']" value="'.$row['id'].'">
                     <select name="absent['.$count.']" class="form-control">
                       <option value="0">present</option>
                       <option value="1">absent</option>

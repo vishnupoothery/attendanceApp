@@ -52,7 +52,7 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Select Batch</li>
+            <li class="breadcrumb-item active">Select Subject</li>
           </ol>
           <!--  Buttons  -->
           <div class="box-btn">
@@ -65,10 +65,8 @@
               <div class="row">
                 <?php
                 $count = 1;
-                foreach($conn->query('SELECT * FROM class') as $row){
+                foreach($conn->query('SELECT * FROM subject') as $row){
                   echo '<div class="col-1 col-md-1 btn btn-link">'.$count.'</div><div class="col-11"><a class="btn btn-link" href="viewAttendance.php?batch='.$row['id'].'">'.$row['name'].'</a></div>';
-                    //echo '<option value="'.$row['id'].'">'.$row['batchName'].'</option>';
-                    //echo '<a class="btn btn-link btn-batch col-12 col-md-3" href="viewBatch.php?batchId='.$row['id'].'">'.$row['batchName'].'</a>';
                   $count+=1;
                   }
                 ?>
