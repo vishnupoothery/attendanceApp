@@ -70,8 +70,8 @@
                     <div class="col-4"></div>
                 </div>
             </div>
-            <div class="col-6" style="text-align:right">AYAKKODEN TOWER<br>
-                    Bypass road, Kondotty</div>
+            <div class="col-6" style="text-align:right">Aluva -<br>
+             Paravoor Rd, Aluva, Kerala 683102</div>
         </div>
         <div class="row">
                 <div class="col-12"><br><br></div>

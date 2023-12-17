@@ -4,14 +4,20 @@ session_start();
 
 require 'config.php';
 
-    $sql = "UPDATE batch SET old = 1 WHERE id = :id";
+if (isset($_GET['id'])) {
+    $sql = "DELETE FROM class WHERE id = :id";
     $stmt = $conn->prepare($sql);
-    
+
     $stmt->bindParam(':id', $_GET['id']);
-    if( $stmt->execute() ):
-        $message = 'Batch Moved to old batches';
-    else:
-        $message = 'Sorry there must have been an issue registering';
-    endif;
+    
+    if ($stmt->execute()) {
+        $message = 'Batch Deleted';
+    } else {
+        $message = 'Sorry, there must have been an issue deleting the batch';
+    }
+} else {
+    $message = 'Invalid batch ID';
+}
+
 header("Location: viewBatches.php?message=$message");
 ?>

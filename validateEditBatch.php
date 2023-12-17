@@ -5,10 +5,10 @@ session_start();
 require 'config.php';
 
 if(!empty($_POST['submit'])):
-    $sql = "UPDATE batch SET batchName = :batchName WHERE id = :id";
+    $sql = "UPDATE class SET name = :name WHERE id = :id";
     $stmt = $conn->prepare($sql);
     
-    $stmt->bindParam(':batchName', $_POST['batchName']);
+    $stmt->bindParam(':name', $_POST['name']);
     $stmt->bindParam(':id', $_POST['id']);
     if( $stmt->execute() ):
         $message = 'Batch Sucessfully edited';

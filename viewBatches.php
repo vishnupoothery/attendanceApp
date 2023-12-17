@@ -66,7 +66,7 @@
                 $count = 1;
                 foreach($conn->query('SELECT * FROM class') as $row){
                   echo '<div class="col-1 col-md-1 btn btn-link">'.$count.'</div><div class="col-9 col-md-8  "><a class="btn btn-link" href="viewBatch.php?batchId='.$row['id'].'">'.$row['name'].'</a></div><div class="col-3 col-md-3"><a class="btn btn-link" href="editBatch.php?id='.$row['id'].'">EDIT</a> <a href="moveBatch.php?id='.$row['id'].'" class="btn btn-link">MOVE BATCH</a></div>';
-                    //echo '<option value="'.$row['id'].'">'.$row['batchName'].'</option>';
+                    //echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
                     //echo '<a class="btn btn-link btn-batch col-12 col-md-3" href="viewBatch.php?batchId='.$row['id'].'">'.$row['batchName'].'</a>';
                   $count+=1;
                   }

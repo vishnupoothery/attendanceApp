@@ -2,8 +2,8 @@
   require 'checkLogin.php';
   require 'config.php';
   
-  $records = $conn->prepare('SELECT * FROM batch WHERE id = :batch');
-  $records->bindParam(':batch', $_GET['batch']);
+  $records = $conn->prepare('SELECT * FROM class WHERE id = :class');
+  $records->bindParam(':class', $_GET['class']);
   $records->execute();
   $exam = $records->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MCA UCC Admin - Add Ranklist</title>
+    <title>MCA UCC Admin -</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -64,42 +64,45 @@
           </div>
           <!-- DataTables Example -->
           <div class="card mb-3">
-            <div class="card-body">
-                <form method="POST" action="validateEditAttendance.php">
-                <div class="row">
-                  <div class="col-12 col-md-4">
-                      <div class="form-group">
-                          <input type="hidden" name="date" id="date" value="<?php echo $_GET['date']; ?>" class="form-control">
-                          <input type="hidden" name="batch" value="<?php echo $_GET['batch'] ?>">
-                      </div>
-                  </div>
-                </div>
-                    
-              <div class="row">
-                  
-                <?php
-                $count = 0;
-                foreach($conn->query('SELECT * FROM attendance WHERE batch = '.$_GET['batch'].' AND date = "'.$_GET['date'].'"') as $row){
-                    echo '<div class="form-group col-6">'.$row['rollNo'].'</div><div class="form-group col-2"><input type="hidden" name="rollNo['.$count.']" value="'.$row['rollNo'].'">
-                    <select name="absent['.$count.']" class="form-control">';
-                      if($row['absent'] == 0){
-                          echo '<option value="0">present</option>
-                          <option value="1">absent</option>';
-                      }
-                      else{
-                          echo '<option value="1">absent</option>
-                          <option value="0">present</option>
-                          ';
-                      }
-                    echo '</select>
-                    </div><div class="col-12"><hr></div>';
-                    $count+=1;
-                }
-                ?>
-              </div>
-              <input type="hidden" name="count" value="<?php echo $count; ?>">
-              <input name="submit" type="submit" value="EDIT ATTENDANCE" class="btn btn-outline-dark">
-            </form>
+                    <div class="card-body">
+                        <form method="POST" action="validateEditAttendance.php">
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="hidden" name="date" id="date" value="<?php echo $_GET['date']; ?>" class="form-control">
+                                        <input type="hidden" name="batch" value="<?php echo $_GET['batch'] ?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <?php
+                                $count = 0;
+                                $stmt = $conn->prepare('SELECT * FROM attendance WHERE id = :id AND date = :date');
+                                $stmt->bindParam(':id', $_GET['id']);
+                                $stmt->bindParam(':date', $_GET['date']);
+                                $stmt->execute();
+
+                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                    echo '<div class="form-group col-6">' . $row['roll'] . '</div>';
+                                    echo '<div class="form-group col-2"><input type="hidden" name="roll[' . $count . ']" value="' . $row['roll'] . '">
+                                        <select name="absent[' . $count . ']" class="form-control">';
+                                    if ($row['absent'] == 0) {
+                                        echo '<option value="0">present</option>
+                                              <option value="1">absent</option>';
+                                    } else {
+                                        echo '<option value="1">absent</option>
+                                              <option value="0">present</option>';
+                                    }
+                                    echo '</select>
+                                        </div><div class="col-12"><hr></div>';
+                                    $count += 1;
+                                }
+                                ?>
+                            </div>
+                            <input type="hidden" name="count" value="<?php echo $count; ?>">
+                            <input name="submit" type="submit" value="EDIT ATTENDANCE" class="btn btn-outline-dark">
+                        </form>
             </div>
           </div>
 

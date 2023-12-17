@@ -2,7 +2,7 @@
     require 'checkLogin.php';
     require 'config.php';
 
-    $records = $conn->prepare('SELECT * FROM batch WHERE id = :id');
+    $records = $conn->prepare('SELECT * FROM class WHERE id = :id');
 $records->bindParam(':id', $_GET['id']);
 $records->execute();
 $batch = $records->fetch(PDO::FETCH_ASSOC);
@@ -60,7 +60,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
             <div class="box-btn">
               <a class="btn btn-dark btn-bread"> Add Batch </a>
               <a href="viewBatches.php" class="btn btn-outline-dark btn-bread"> View Batches </a>
-              <a href="viewOldBatches.php" class="btn btn-outline-dark btn-bread"> View Previous Batches </a>
+            
             </div>
             <!-- DataTables Example -->
             <div class="card mb-3">
@@ -68,7 +68,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
                 <form method="POST" action="validateEditBatch.php">
                     <input type="hidden" name="id" value="<?php echo $batch['id'] ?>">
                     <div class="form-group">
-                        <input required type="text" name="batchName" placeholder="Batch Name" id="batchName" class="form-control" value="<?php echo $batch['batchName']; ?>">
+                        <input required type="text" name="name" placeholder="name" id="name" class="form-control" value="<?php echo $batch['name']; ?>">
                     </div>
                     <div class="form-group text-center">
                         <input required class="btn btn-outline-primary" type="submit" name="submit" value="Edit Batch">
