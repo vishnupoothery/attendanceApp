@@ -78,7 +78,11 @@
             <div class="card-body">
               <div class="">
                 <div class="row">
-                  <div class="col-12"><br></div>
+                  <div class="col-12"><br>
+                  <?php if(!empty($_GET['mailMessage'])): ?>
+            <p class="alert alert-danger" ><?= $_GET['mailMessage'] ?></p>
+            <?php endif; ?>
+                </div>
                   <div class="col-3">Name </div>
                   <div class="col-9">: <?php echo $student['name'] ?></div>
                   <div class="col-12"><hr style="color:white;"></div>
