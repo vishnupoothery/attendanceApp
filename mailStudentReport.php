@@ -32,6 +32,6 @@
 
   $response = sendMail($email, $subject, $body);
 
-  header("Location: viewStudent.php?id=".$_GET['id']."&message=".$response);
+  header("Location: viewStudent.php?id=".$_GET['id']."&mailMessage=".$response);
 
 ?>
