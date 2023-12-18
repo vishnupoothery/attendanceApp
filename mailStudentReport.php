@@ -26,9 +26,9 @@
 
   $attendacePercentage = (($totalWorkingDays['COUNT(id)']-$absent['COUNT(id)'])*100)/$totalWorkingDays['COUNT(id)'];
 
-  $subject = 'Attendace report for ' + $student["name"];
+  $subject = 'Attendace report for '.$student["name"];
   $email = $student["email"];
-  $body = 'Total Working hours : ' + $totalWorkingDays['COUNT(id)'] + '\nTotal hours attended : ' + $totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)'] + '\nAttendace Percentage : ' + $attendacePercentage;
+  $body = 'Total Working hours : '.$totalWorkingDays['COUNT(id)'].'\nTotal hours attended : '.($totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)']).'\nAttendace Percentage : '.$attendacePercentage;
 
   $response = sendMail($email, $subject, $body);
 
