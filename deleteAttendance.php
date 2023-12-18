@@ -4,10 +4,10 @@ require 'checkLogin.php';
 require 'config.php';
 
 
-$sql = "DELETE FROM attendance WHERE batch = :batch AND date = :date";
+$sql = "DELETE FROM attendance WHERE subject = :subject AND date = :date";
     $stmt = $conn->prepare($sql);
     
-    $stmt->bindParam(':batch', $_GET['batch']);
+    $stmt->bindParam(':subject', $_GET['subject']);
     $stmt->bindParam(':date', $_GET['date']);
 
     if( $stmt->execute() ):
@@ -15,8 +15,8 @@ $sql = "DELETE FROM attendance WHERE batch = :batch AND date = :date";
     else:
         $message = 'Sorry there must have been an issue';
     endif;
-    $batch = $_GET['batch'];
-    header("Location: viewAttendance.php?examID=$message&&batch=$batch");
+    $subject = $_GET['subject'];
+    header("Location: viewAttendance.php?examID=$message&&subject=$subject");
 echo $message;
 
 ?>

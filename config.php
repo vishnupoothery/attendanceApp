@@ -1,8 +1,8 @@
 <?php
- $DB_HOST = 'localhost';
+ $DB_HOST = 'localhost:3307';
  $DB_USER = 'root';
  $DB_PASS = '';
- $DB_NAME = 'pulse';
+ $DB_NAME = 'ucattendance';
  
  try{
 	$conn = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME;", $DB_USER, $DB_PASS);

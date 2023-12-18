@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MCA UCC Admin - Add Batch</title>
+    <title>MCA UCC - Add Batch</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,12 +51,12 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">View Batch</li>
+            <li class="breadcrumb-item active">View Classes</li>
           </ol>
           <!--  Buttons  -->
           <div class="box-btn">
-            <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
-            <a class="btn btn-dark btn-bread"> View Batches </a>
+            <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Class </a>
+            <a class="btn btn-dark btn-bread"> View Classes </a>
           </div>
           <!-- DataTables Example -->
           <div class="card mb-3">

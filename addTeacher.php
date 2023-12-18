@@ -14,7 +14,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
 
-      <title>Pulse Admin - Add Teacher</title>
+      <title>MCA UCC  - Add Teacher</title>
 
       <!-- Bootstrap core CSS-->
       <link href="css/bootstrap.min.css" rel="stylesheet">

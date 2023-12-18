@@ -43,7 +43,7 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MCA UCC Admin - View Batch</title>
+    <title>MCA UCC  - View Batch</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -81,13 +81,13 @@ $batch = $records->fetch(PDO::FETCH_ASSOC);
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">View Batch</li>
+            <li class="breadcrumb-item active">View Class</li>
             <li class="breadcrumb-item active"><?php echo $batch['name']; ?></li>
           </ol>
           <!--  Buttons  -->
           <div class="box-btn">
-            <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
-            <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Batches </a>
+            <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Class </a>
+            <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Classes </a>
           </div>
           <?php
 if(!empty($_GET['message'])){

@@ -24,7 +24,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pulse Admin - View Student</title>
+    <title>MCA UCC  - View Student</title>
 
     <!-- Bootstrap core CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -70,7 +70,7 @@
           <div class="box-btn">
             <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
             <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Batches </a>
-            <!-- <a class="btn btn-outline-dark btn-bread" href="editStudent.php?id=<?php echo $student['id']; ?>"> Edit Student </a> -->
+           <a class="btn btn-outline-dark btn-bread" href="mailindex.php"> Send mail </a> 
             <a class="btn btn-outline-dark btn-bread" target="blank" href="generateAttendanceReport.php?id=<?php echo $student['id']; ?>"> Generate Attendance Report </a>
           </div>
           <!-- DataTables Example -->
