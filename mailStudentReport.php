@@ -28,7 +28,7 @@
 
   $subject = 'Attendace report for '.$student["name"];
   $email = $student["email"];
-  $body = 'Total Working hours : '.$totalWorkingDays['COUNT(id)'].'\nTotal hours attended : '.($totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)']).'\nAttendace Percentage : '.$attendacePercentage;
+  $body = 'Total Working hours : '.$totalWorkingDays['COUNT(id)'].'<br>Total hours attended : '.($totalWorkingDays['COUNT(id)'] - $absent['COUNT(id)']).'<br>Attendace Percentage : '.$attendacePercentage;
 
   $response = sendMail($email, $subject, $body);
 
