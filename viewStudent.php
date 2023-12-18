@@ -80,7 +80,7 @@
                 <div class="row">
                   <div class="col-12"><br>
                   <?php if(!empty($_GET['mailMessage'])): ?>
-            <p class="alert alert-danger" ><?= $_GET['mailMessage'] ?></p>
+            <p class="alert alert-info" ><?= $_GET['mailMessage'] ?></p>
             <?php endif; ?>
                 </div>
                   <div class="col-3">Name </div>

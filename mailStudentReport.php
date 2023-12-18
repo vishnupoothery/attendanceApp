@@ -32,6 +32,12 @@
 
   $response = sendMail($email, $subject, $body);
 
-  header("Location: viewStudent.php?id=".$_GET['id']."&mailMessage=".$response);
+  if($response == "success"){
+    $mailMessage = "Maill sent successfully "
+  }else{
+    $mailMessage = $response
+  }
+
+  header("Location: viewStudent.php?id=".$_GET['id']."&mailMessage=".$mailMessage);
 
 ?>
