@@ -70,7 +70,7 @@
           <div class="box-btn">
             <a href="addBatch.php" class="btn btn-outline-dark btn-bread"> Add Batch </a>
             <a class="btn btn-dark btn-bread" href="viewBatches.php"> View Batches </a>
-           <a class="btn btn-outline-dark btn-bread" href="mailindex.php"> Send mail </a> 
+           <a class="btn btn-outline-dark btn-bread" href="mailStudentReport.php?id=<?php echo $student['id']; ?>"> Send mail </a> 
             <a class="btn btn-outline-dark btn-bread" target="blank" href="generateAttendanceReport.php?id=<?php echo $student['id']; ?>"> Generate Attendance Report </a>
           </div>
           <!-- DataTables Example -->
